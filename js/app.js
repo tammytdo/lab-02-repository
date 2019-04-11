@@ -17,29 +17,39 @@ HornedAnimal.prototype.render = function() {
   $('main').append('<section id="clone"></section>');
   $('#clone').html(hornedAnimalSectionHTML);
 
-
   $('#clone').find('h2').text(this.title);
-  $('#clone').find('img').attr("src", this.image_url);
-  $('#clone').find('alt').attr("alt", this.description);
+  $('#clone').find('img').attr('src', this.image_url);
+  $('#clone').find('alt').attr('alt', this.description);
   $('#clone').attr('id', this.keyword);
   $('#clone').attr('id', this.horns);
+
+  // Building the Dropdown Menu Selection
+  $('#dropdownOptions').append('<option id="dropdown-items"></option>');
+  $('#dropdown-items').text(this.title);
+  $('#dropdown-items').find('alt').attr('alt', this.description);
+  $('#dropdown-items').attr('id', this.title);
+  // $('')
 }
 
-const testHornedAnimal = new HornedAnimal({});
-testHornedAnimal.render();
-
 HornedAnimal.getHornedAnimalData = function() {
-  console.log('get data worked');
-
   $.get('data/page_1.json', 'json').then( page_1 => {
     page_1.forEach(hornedAnimal => new HornedAnimal(hornedAnimal));
     allHornedAnimals.forEach(hornedAnimal => hornedAnimal.render());
-  })
-}
+  });
+};
 
 HornedAnimal.getHornedAnimalData();
 
+$('#dropdownOptions').change(function() {
+  let $selectedItem = $(this).val();
+  $('img').hide();
+  $('h2').hide();
+  $(`img[selectedItem="${$selectedItem}"]`).show();
+});
 
 $(document).ready(function() {
   $('.tab-content').hide();
 });
+
+// const testHornedAnimal = new HornedAnimal({});
+// testHornedAnimal.render();
