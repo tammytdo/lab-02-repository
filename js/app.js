@@ -25,7 +25,7 @@ HornedAnimal.prototype.render = function() {
 
   // Building the Dropdown Menu Selection
   $('#dropdownOptions').append('<option id="dropdown-items"></option>');
-  $('#dropdown-items').text(this.title);
+  $('#dropdown-items').text(this.keyword);
   $('#dropdown-items').find('alt').attr('alt', this.description);
   $('#dropdown-items').attr('id', this.title);
   // $('')
@@ -44,7 +44,7 @@ $('#dropdownOptions').change(function() {
   let $selectedItem = $(this).val();
   $('img').hide();
   $('h2').hide();
-  $(`img[selectedItem="${$selectedItem}"]`).show();
+  $(`${$selectedItem}`).show();
 });
 
 $(document).ready(function() {
